@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_main.c                                          :+:      :+:    :+:   */
+/*   ft_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/08 08:54:57 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/08 16:48:46 by jcarra           ###   ########.fr       */
+/*   Created: 2016/11/08 16:40:02 by jcarra            #+#    #+#             */
+/*   Updated: 2016/11/08 16:46:35 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "fillit.h"
-
-int		main(int ac, char **av)
+t_tetri		**ft_fillit_parsing(char *str)
 {
-	if (ac != 2)
-	{
-		ft_putstr("Usage: ./fillit [file]\n");
-		return (1);
-	}
-	if (ft_fillit(av[1]) == -1)
-	{
-		ft_putstr("error");
-		return (1);
-	}
-	return (0);
+	t_tetri	**tetris;
+
+
 }

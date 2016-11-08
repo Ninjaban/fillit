@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 09:12:18 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/08 09:43:00 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/08 16:46:50 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,14 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
-
 /*
 **	Structure
 */
 
 typedef struct	s_tetri
 {
-	int			*p1;
-	int			*p2;
-	int			*p3;
-	int			*p4;
+	char		nb;
+	int			**block;
 }				t_tetri;
 
 /*
@@ -38,17 +35,8 @@ typedef struct	s_tetri
 */
 
 int			ft_fillit(const char *name);
+int			ft_fillit_secure_base(char *str);
+char		*ft_fillit_read(const char *name);
+t_tetri		**ft_fillit_parsing(char *str);
 
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
