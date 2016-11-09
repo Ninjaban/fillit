@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 09:14:19 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/08 16:38:27 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/09 09:26:49 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 int			ft_fillit(const char *name)
 {
 	char	*str;
-
 
 	if ((str = ft_fillit_read(name)) == NULL)
 		return (-1);

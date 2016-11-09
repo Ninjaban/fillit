@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:34:37 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/08 16:38:30 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/09 09:26:11 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,7 @@ int			ft_fillit_secure_base(char *str)
 			return (-1);
 		start = end;
 	}
+	if (start > 535)
+		return (-1);
 	return (0);
 }
