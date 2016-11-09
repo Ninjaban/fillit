@@ -23,11 +23,21 @@ void		ft_tetri_free(t_tetri **tetris)
 	}
 }
 
-static t_tetri	ft_fillit_parsing_block(t_tetri *tetri, char *str,
+static t_tetri	*ft_fillit_parsing_block(t_tetri *tetri, char *str,
 										int start, int end)
 {
+	int			n;
+
+	n = start - 1;
 	if ((tetri = malloc(sizeof(t_tetri))) == NULL)
 		return (NULL);
+	if ((tetri->tab = malloc(sizeof(int *) * 4)) == NULL)
+		return (NULL);
+	while (++n)
+	{
+
+	}
+	return (tetri);
 }
 
 static void	ft_fillit_parsing_alloc(t_tetri ***tetris, char *str)
@@ -48,6 +58,7 @@ static void	ft_fillit_parsing_alloc(t_tetri ***tetris, char *str)
 				end = end + 1;
 		}
 		if (((*tetris)[n] = ft_fillit_parsing_block((*tetris)[n], str, start, end)) == NULL)
+			(*tetris)[n]->nb = n + 'A';
 			return (NULL);
 	}
 }
