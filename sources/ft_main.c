@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 08:54:57 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/08 16:48:46 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/09 13:36:54 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		main(int ac, char **av)
 	}
 	if (ft_fillit(av[1]) == -1)
 	{
-		ft_putstr("error");
+		ft_putstr("error\n");
 		return (1);
 	}
 	return (0);
