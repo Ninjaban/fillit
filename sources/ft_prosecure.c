@@ -1,33 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fillit.h                                           :+:      :+:    :+:   */
+/*   ft_prosecure.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/08 09:12:18 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/10 10:57:01 by jcarra           ###   ########.fr       */
+/*   Created: 2016/11/10 10:56:18 by jcarra            #+#    #+#             */
+/*   Updated: 2016/11/10 13:00:47 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILLIT_H
-# define FILLIT_H
+#include "libft.h"
+#include "fillit.h"
 
-# define X 1
-# define Y 0
+int			ft_fillit_secure_pro_cmp(short *tab, int n)
+{
+	int		i;
 
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
+	i = 0;
+	while (i < 27)
+	{
+		if (i == n)
+			i = i + 1;
+		if (tab[i] == tab[n])
+			return (1);
+		i = i + 1;
+	}
+	return (0);
+}
 
-/*
-**	Fonctions
-*/
+int			ft_fillit_secure_pro(short *tab)
+{
+	int		n;
 
-int			ft_fillit(const char *name);
-int			ft_fillit_secure_base(char *str, int start, int end);
-int			ft_fillit_secure_pro(short *tab);
-char		*ft_fillit_read(const char *name);
-short		*ft_fillit_parsing(char *str);
-
-#endif
+	n = 0;
+	while (tab[n] != 0)
+	{
+		if (ft_fillit_secure_pro_cmp(tab, n) == 1)
+			return (-1);
+	}
+	return (0);
+}

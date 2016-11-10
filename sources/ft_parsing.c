@@ -6,45 +6,55 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 16:40:02 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/09 13:46:15 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/10 13:56:46 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void		ft_tetri_free(t_tetri **tetris)
-{
-	int		n;
+#include "libft.h"
+#include "fillit.h"
 
-	n = 0;
-	if (tetris != NULL)
-	{
-		while (tetris[n] != NULL)
-			free(tetris[n++]);
-		free(tetris);
-	}
-}
-
-static t_tetri	*ft_fillit_parsing_block(t_tetri *tetri, char *str,
-										int start, int end)
+static short	ft_fillit_parsing_block_align(short bit)
 {
 	int			n;
 
-	n = start - 1;
-	if ((tetri = malloc(sizeof(t_tetri))) == NULL)
-		return (NULL);
-	if ((tetri->tab = malloc(sizeof(int *) * 4)) == NULL)
-		return (NULL);
-	while (++n)
+	while ((bit & (1 << 0)) == 0 && (bit & (1 << 1)) == 0 &&
+		   (bit & (1 << 2)) == 0 && (bit & (1 << 3)) == 0)
+		bit = bit >> 4;
+	if ((bit & (1 << 0)) == 0 && (bit & (1 << 4)) == 0 &&
+		   (bit & (1 << 8)) == 0 && (bit & (1 << 12)) == 0)
 	{
-
+		n = 0;
+		while (++n < 16)
+			if ((bit & (1 << n)) != 0)
+			{
+				bit = bit | (1 << (n - 1));
+				bit = bit & ~(1 << n);
+			}
 	}
-	return (tetri);
+	return (bit);
 }
 
-static void	ft_fillit_parsing_alloc(t_tetri ***tetris, char *str)
+static short	ft_fillit_parsing_block(short bit, char *str, int start)
 {
-	int		start;
-	int		end;
-	int		n;
+	int			n;
+
+	n = 0;
+	while (n < 16)
+	{
+		if (str[start] == '\n')
+			start = start + 1;
+		bit = (str[start++] == '.') ? bit & ~(1 << n) : bit | (1 << n);
+		n = n + 1;
+	}
+	bit = ft_fillit_parsing_block_align(bit);
+	return (bit);
+}
+
+static int		ft_fillit_parsing_alloc(short **tab, char *str)
+{
+	int			start;
+	int			end;
+	int			n;
 
 	start = 0;
 	end = 0;
@@ -57,27 +67,31 @@ static void	ft_fillit_parsing_alloc(t_tetri ***tetris, char *str)
 			if (str[end] == '\n' && (str[end + 1] != '\n' && str[end + 1] != '\0'))
 				end = end + 1;
 		}
-		if (((*tetris)[n] = ft_fillit_parsing_block((*tetris)[n], str, start, end)) == NULL)
-			(*tetris)[n]->nb = n + 'A';
-			return (NULL);
+		(*tab)[n] = ft_fillit_parsing_block((*tab)[n], str, start);
+		n = n + 1;
+		while (str[end] == '\n')
+			end = end + 1;
+		start = end;
+		if (n > 27)
+		{
+			free(*tab);
+			return (-1);
+		}
 	}
+	return (0);
 }
 
-t_tetri		**ft_fillit_parsing(char *str)
+short			*ft_fillit_parsing(char *str)
 {
-	t_tetri	**tetris;
-	int		n;
+	short		*tab;
+	int			n;
 
 	n = 0;
-	if ((tetris = malloc(sizeof (t_tetri *) * 26)) == NULL)
+	if ((tab = malloc(sizeof (short) * 27)) == NULL)
 	  return (NULL);
-	while (n < 26)
-	  tetris[n++] = NULL;
-	if (ft_fillit_parsing_alloc(&tetris, str))
-	{
-		ft_tetri_free(tetris);
-		return (NULL);sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-	}
-	/* --- */
-	return (tetris);
+	while (n < 27)
+	  tab[n++] = 0;
+	if (ft_fillit_parsing_alloc(&tab, str) == -1)
+		return (NULL);
+	return (tab);
 }
