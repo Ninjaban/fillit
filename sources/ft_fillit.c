@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 09:14:19 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/10 13:53:16 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/10 18:48:34 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,22 @@ int			ft_fillit(const char *name)
 
 	if ((str = ft_fillit_read(name)) == NULL)
 		return (-1);
-	if (ft_fillit_secure_base(str, 0, 0) == -1)
+	if (ft_fillit_secure_base(str, 0, 0) != -1)
+	{
+		free(str);
 		return (-1);
-	ft_putstr("Tout est ok.\n");
+	}
 	if ((tab = ft_fillit_parsing(str)) == NULL)
+	{
+		free(str);
 		return (-1);
+	}
+	if (ft_fillit_secure_pro(tab) == -1)
+	{
+		free(tab);
+		free(str);
+		return (-1);
+	}
 	ft_print_all(tab);
 	free(tab);
 	free(str);
