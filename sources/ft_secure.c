@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:34:37 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/11 09:03:32 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/11 10:13:16 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ft_fillit_secure_block_rec(char *str, int start, int end, int n)
 		nb = nb + ft_fillit_secure_block_rec(str, start, end, n + 5);
 	if (n - 5 >= start && str[n - 5] == '#')
 		nb = nb + ft_fillit_secure_block_rec(str, start, end, n - 5);
-	str[n] = '#';
+	ft_putnbr(nb);
 	return (nb + 1);
 }
 
