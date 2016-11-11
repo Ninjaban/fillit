@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:34:37 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/10 13:05:14 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/11 09:03:32 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static int	ft_fillit_secure_tetri(char *str, int start, int end)
 	n = start - 1;
 	nb = 0;
 	while (++n < end)
-	{
 		if (str[n] == '\n')
 		{
 			if (nb != 4)
@@ -82,22 +81,24 @@ static int	ft_fillit_secure_tetri(char *str, int start, int end)
 		}
 		else
 			nb = nb + 1;
-	}
 	if (ft_fillit_secure_block(str, start, end) == -1)
 		return (-1);
 	return (0);
 }
 
-int			ft_fillit_secure_base(char *str, int start, int end)
+int			ft_fillit_secure_base(char *str)
 {
+	int		start;
+	int		end;
+
+	start = 0;
+	end = 0;
 	while (str[start])
 	{
 		while (str[end] && str[end] != '\n')
-		{
-			end = end + 1;
-			if (str[end] == '\n' && (str[end + 1] != '\n' && str[end + 1] != '\0'))
+			if (str[++end] == '\n' &&
+				(str[end + 1] != '\n' && str[end + 1] != '\0'))
 				end = end + 1;
-		}
 		if (end - start != 19)
 			return (-1);
 		if (ft_fillit_secure_tetri(str, start, end) == -1)

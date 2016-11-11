@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 09:14:19 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/10 18:48:34 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/11 09:04:16 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@ static void	ft_print_all(short *tab)
 	}
 }
 
+static int	ft_free_stab(char *str, short *tab)
+{
+	if (str)
+		free(str);
+	if (tab)
+		free(tab);
+	return (-1);
+}
+
 int			ft_fillit(const char *name)
 {
 	char	*str;
@@ -39,24 +48,13 @@ int			ft_fillit(const char *name)
 
 	if ((str = ft_fillit_read(name)) == NULL)
 		return (-1);
-	if (ft_fillit_secure_base(str, 0, 0) != -1)
-	{
-		free(str);
-		return (-1);
-	}
+	if (ft_fillit_secure_base(str) == -1)
+		return (ft_free_stab(str, NULL));
 	if ((tab = ft_fillit_parsing(str)) == NULL)
-	{
-		free(str);
-		return (-1);
-	}
+		return (ft_free_stab(str, NULL));
 	if (ft_fillit_secure_pro(tab) == -1)
-	{
-		free(tab);
-		free(str);
-		return (-1);
-	}
+		return (ft_free_stab(str, tab));
 	ft_print_all(tab);
-	free(tab);
-	free(str);
+	ft_free_stab(str, tab);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 16:40:02 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/10 13:56:46 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/11 08:59:25 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static short	ft_fillit_parsing_block_align(short bit)
 	int			n;
 
 	while ((bit & (1 << 0)) == 0 && (bit & (1 << 1)) == 0 &&
-		   (bit & (1 << 2)) == 0 && (bit & (1 << 3)) == 0)
+			(bit & (1 << 2)) == 0 && (bit & (1 << 3)) == 0)
 		bit = bit >> 4;
 	if ((bit & (1 << 0)) == 0 && (bit & (1 << 4)) == 0 &&
-		   (bit & (1 << 8)) == 0 && (bit & (1 << 12)) == 0)
+			(bit & (1 << 8)) == 0 && (bit & (1 << 12)) == 0)
 	{
 		n = 0;
 		while (++n < 16)
@@ -64,19 +64,16 @@ static int		ft_fillit_parsing_alloc(short **tab, char *str)
 		while (str[end] && str[end] != '\n')
 		{
 			end = end + 1;
-			if (str[end] == '\n' && (str[end + 1] != '\n' && str[end + 1] != '\0'))
+			if (str[end] == '\n' &&
+				(str[end + 1] != '\n' && str[end + 1] != '\0'))
 				end = end + 1;
 		}
 		(*tab)[n] = ft_fillit_parsing_block((*tab)[n], str, start);
-		n = n + 1;
 		while (str[end] == '\n')
 			end = end + 1;
 		start = end;
-		if (n > 27)
-		{
-			free(*tab);
+		if (++n > 27)
 			return (-1);
-		}
 	}
 	return (0);
 }
@@ -87,11 +84,14 @@ short			*ft_fillit_parsing(char *str)
 	int			n;
 
 	n = 0;
-	if ((tab = malloc(sizeof (short) * 27)) == NULL)
-	  return (NULL);
-	while (n < 27)
-	  tab[n++] = 0;
-	if (ft_fillit_parsing_alloc(&tab, str) == -1)
+	if ((tab = malloc(sizeof(short) * 27)) == NULL)
 		return (NULL);
+	while (n < 27)
+		tab[n++] = 0;
+	if (ft_fillit_parsing_alloc(&tab, str) == -1)
+	{
+		free(tab);
+		return (NULL);
+	}
 	return (tab);
 }

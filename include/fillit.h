@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 09:12:18 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/10 10:57:01 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/11 09:03:22 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 */
 
 int			ft_fillit(const char *name);
-int			ft_fillit_secure_base(char *str, int start, int end);
+int			ft_fillit_secure_base(char *str);
 int			ft_fillit_secure_pro(short *tab);
 char		*ft_fillit_read(const char *name);
 short		*ft_fillit_parsing(char *str);
