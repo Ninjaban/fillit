@@ -6,7 +6,7 @@
 #    By: jcarra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 14:55:01 by jcarra            #+#    #+#              #
-#    Updated: 2016/11/10 12:02:28 by jcarra           ###   ########.fr        #
+#    Updated: 2016/11/14 12:57:40 by mrajaona         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -17,7 +17,11 @@ SRC			=	ft_main.c \
 				ft_secure.c \
 				ft_parsing.c \
 				ft_prosecure.c \
-				ft_read.c
+				ft_read.c \
+				ft_tetri.c \
+				ft_initmap.c \
+				ft_fillmap.c \
+				ft_printmap.c
 
 LIB			=	libft.a
 
