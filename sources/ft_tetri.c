@@ -6,7 +6,7 @@
 /*   By: mrajaona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:16:41 by mrajaona          #+#    #+#             */
-/*   Updated: 2016/11/15 12:35:35 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/15 13:03:43 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ static unsigned int	ft_cpy(unsigned short src, unsigned int dest,
 	unsigned int	mask;
 
 	mask = ((1 << (4)) - 1) << (pa - 4);
+	printf("src : %04X\n", src);
+	printf("dest: %06X\n", dest);
 	dest = (dest) | (((~(src) & mask) >> (pa - pb))
 					^ (dest | (mask >> (pa - pb))));
-	printf("src : %04X\n", src);
 	printf("cpy : %06X\n", dest);
 	return (dest);
 }

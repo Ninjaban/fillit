@@ -6,7 +6,7 @@
 /*   By: mrajaona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 10:37:12 by mrajaona          #+#    #+#             */
-/*   Updated: 2016/11/15 12:34:40 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/15 12:59:53 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,23 @@ void				ft_print_all(t_map *map)
 	}
 }
 
-/* CA MARCHE PAS A CAUSE DU FT_TETRICPY*/
-static int			ft_itfits(t_map *map, t_tetri *tetri, t_pos *pos)
+/* CA MARCHE PAS */
+
+static int			ft_doesitfit(unsigned short src, unsigned int dest,
+									int pa, int pb)
 {
 	unsigned int	mask;
-	unsigned short	*src;
-	t_mapl			*dest;
+
+	mask = ((1 << (4)) - 1) << (pa - 4);
+	printf("A: %0X\n", dest);
+	dest = (dest & (((~(src) & mask) << (pa - pb))
+								^ (dest | (mask << (pa - pb)))));
+	printf("B: %0X\n\n", dest);
+	return (dest);
+}
+
+static int			ft_itfits(t_map *map, t_tetri *tetri, t_pos *pos)
+{
 	char			pa;
 	char			l;
 	unsigned int	res;
@@ -65,20 +76,17 @@ static int			ft_itfits(t_map *map, t_tetri *tetri, t_pos *pos)
 	ft_putstr("hey\n");
 	while (l < 4 && (pos->y + l) < map->size)
 	{
-		src = &(tetri->piece);
 		pa = 4 * ((4 - l) % 4);
-		dest = &(map->map[pos->y + l]);
-		mask = ((1 << (4)) - 1) << (pa - 4);
-		printf("A: %0X\n", dest->line);
-		dest->line = (dest->line & (((~(*src) & mask) << (pa - pos->x))
-									^ (dest->line | (mask << (pa - pos->x)))));
-		printf("B: %0X\n\n", dest->line);
+		res += ft_doesitfit(tetri->piece, map->map[pos->y + l].line,
+							pa, pos->x);
 		l++;
 	}
 	if (res == 0)
 		return (1);
 	return (0);
 }
+
+/* CA MARCHE PAS ET CA TUE LA NORME */
 
 t_map				*ft_fillmap(unsigned char size, t_tetri *ttab, const int nb)
 {

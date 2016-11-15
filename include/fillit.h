@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 09:12:18 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/15 12:25:36 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/15 13:01:22 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void			ft_tetridel(t_map *map, t_tetri *tetri);
 t_tetri			*ft_tabtetri(int nb, const short *tab);
 void			ft_printmap(t_map *map, t_tetri *tetri, const int nb);
 
+/* DEBUG */
 void 			ft_print_all(t_map *map);
 
 #endif
