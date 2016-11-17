@@ -6,7 +6,7 @@
 /*   By: mrajaona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 10:37:12 by mrajaona          #+#    #+#             */
-/*   Updated: 2016/11/17 12:07:53 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/17 15:40:01 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,23 @@ void				ft_print_all(t_map *map)
 	}
 }
 
-/* CA MARCHE PAS */
+static int			ft_isok(unsigned short src, int pa)
+{
+	unsigned int	mask;
+
+	mask = 0xF << (pa - 4);
+	if ((mask & src) != 0)
+		return (1);
+	return (0);
+}
 
 static int			ft_doesitfit(unsigned short src, unsigned int dest,
 									int pa, int pb)
 {
-	unsigned int	mask;
+	unsigned short	mask;
 
-	mask = ((1 << (4)) - 1) << (pa - 4);
-	printf("A: %0X\n", dest);
-	dest = (dest & (((~(src) & mask) << (pa - pb))
-								^ (dest | (mask << (pa - pb)))));
-	printf("B: %0X\n\n", dest);
+	mask = 0xF << (pa - 4);
+	dest = dest & ((src & mask) >> (pa - 4) << pb);
 	return (dest);
 }
 
@@ -73,18 +78,21 @@ static int			ft_itfits(t_map *map, t_tetri *tetri, t_pos *pos)
 
 	l = 0;
 	res = 0;
-	ft_putstr("hey\n");
-	while (l < 4 && (pos->y + l) < map->size)
+	ft_putstr("Does it fit ? ");
+	while (l < 4)
 	{
-		pa = 4 * ((4 - l) % 4);
-		res += ft_doesitfit(tetri->piece, map->map[pos->y + l].line,
-							pa, pos->x);
-		printf("res it_fits : %d\n", res);
+		pa = 4 * (l + 1);
+		if ((pos->y + l) < map->size)
+			res += ft_doesitfit(tetri->piece, map->map[pos->y + l].line,
+								pa, pos->x);
+		else
+			res += ft_isok(tetri->piece, pa);
 		l++;
 	}
-	if (res == 0)
-		return (1);
-	return (0);
+	printf("%d\n", res);
+	if (res != 0)
+		return (0);
+	return (1);
 }
 
 /* CA MARCHE PAS ET CA TUE LA NORME */
@@ -101,41 +109,54 @@ t_map				*ft_fillmap(unsigned char size, t_tetri *ttab, const int nb)
 	map = NULL;
 	pos.x = 0;
 	pos.y = 0;
-	while (p <= nb)
-		ptab[p++] = '\0';
-	p = 0;
 	t = 0;
-	while (p < nb && t < nb)
+	while (p < nb)
 	{
-		t = 0;
-		ft_putstr("loop\n");
-		if (map == NULL || (pos.y == size && p < nb))
+		if (map == NULL || (pos.y == size && t == nb))
 		{
-			if (map == NULL || t == nb)
+			ft_putstr("\nNULL\n");
+			p = 0;
+			if (map)
 			{
-				if ((map = ft_makemap(map, size)) == NULL)
-					return (NULL);
-				p = 0;
+				ft_cleanmap(map, ttab, ptab, 0);
+				ft_putstr("Clean\n\n");
+				size++;
 			}
-			else
-			{
-				p--;
-				ft_cleanmap(map, ttab, ptab, p);
-			}
+			if ((map = ft_makemap(map, size)) == NULL)
+				return (NULL);
+			while (p <= nb)
+				ptab[p++] = '\0';
+			p = 0;
+			pos.x = 0;
+			pos.y = 0;
 		}
+		t = 0;
 		while (t < nb)
 		{
 			if (ttab[t].used == 0)
 			{
+				printf("Loop : x:%d y:%d, t:%d, s:%d\n", pos.x, pos.y, t, size);
 				if (ft_itfits(map, &(ttab[t]), &pos) == 1)
 				{
 					ft_tetricpy(map, &(ttab[t]), &pos);
 					ptab[p] = ttab[t].letter;
+					pos.x++;
 					p++;
-					t = 0;
+					t = -1;
 				}
 			}
+			if (pos.x == size)
+			{
+				pos.y++;
+				pos.x = 0;
+			}
 			t++;
+		}
+		pos.x++;
+		if (pos.x == size)
+		{
+			pos.y++;
+			pos.x = 0;
 		}
 	}
 	ft_putstr(ptab);

@@ -19,10 +19,10 @@ while (somme tetri << 0-4 == 0) -> tetri = tetri << 4;
 
 while (somme tetri << (n % 4 == 0) == 0) -> tetri << !(n % 4 == 3) = tetri << (n + 1) ; tetri << (n % 4 == 3) = 0 ;
 
-##..  .#.. .#.. .##. .#..
-##..  ###. ##.. ##.. ##..
-....  .... .#.. .... #...
-....  .... .... .... ....
+##..  .#.. .#.. .##. .#.. ..#. .#..
+##..  ###. ##.. ##.. ##.. ###. .#..
+....  .... .#.. .... #... .... ##..
+....  .... .... .... .... .... ....
 
 ----- sujet
 
@@ -132,12 +132,12 @@ copier n bits
 		u_int mask;
 
     	mask = ((1 << (n)) - 1) << (pa - n);
-    	return (((~src & mask) >> (pa - pb)) ^ (dest | (mask >> (pa - pb))));
+    	return (((~src & mask) >> (pa - n) << pb) ^ (dest | (mask >> (pa - n) << pb)));
 	}
 } // copie n bits a la position pa de src vers la position pb de dest
 
 copier les bits positifs
-return (dest | (((~src & mask) >> (pa - pb)) ^ (dest | (mask >> (pa - pb)))));
+return (dest | (((~src & mask) >> (pa - n) << pb) ^ (dest | (mask >> (pa - n) << pb))));
 
 if (XOR == OR) (& == 0) -> pas d'intersection -> placement OK
 

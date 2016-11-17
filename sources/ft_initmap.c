@@ -6,7 +6,7 @@
 /*   By: mrajaona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:10:59 by mrajaona          #+#    #+#             */
-/*   Updated: 2016/11/15 10:26:17 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/17 14:10:39 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ static t_map			*ft_initmap(const unsigned char size)
 	while (i < size)
 		map->map[i++].line = 0;
 	map->size = size;
-	/*****************/
-	ft_print_all(map);
 	return (map);
 }
 
@@ -80,7 +78,8 @@ void					ft_map(const int nb, short *tab)
 		return ;
 	if ((map = ft_fillmap(size, tetri, nb)) == NULL)
 		return ;
-	ft_printmap(map, tetri, nb);
+	/*****************************/
+	//ft_printmap(map, tetri, nb);
 	if (tetri)
 		free(tetri);
 	ft_freemap(map);
