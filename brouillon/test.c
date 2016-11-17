@@ -6,7 +6,7 @@
 /*   By: mrajaona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 10:22:33 by mrajaona          #+#    #+#             */
-/*   Updated: 2016/11/15 11:01:25 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/17 10:17:44 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ void     ft_print_all(unsigned int res)
 
 	while (i < 32)
 	{
-		if (i == 20)
-			write(1, "-",1);
-		if (i == 16)
-			write(1, "-",1);
+		if (i == 0)
+			write(1, ".",1);
+		if (i % 4 == 0)
+			write(1, ":",1);
 		write(1, ((res & (1 << i)) == 0) ? "0" : "1", 1);
+
 		i++;
 	}
 	write(1, "\n", 1);
@@ -33,9 +34,9 @@ void     ft_print_all(unsigned int res)
 unsigned short calc(unsigned int a, unsigned short b)
 {
 	unsigned int	mask;
-	int n = 8;
-	int pa = 20;
-	int pb = 16;
+	int n = 4;
+	int pa = 4 * 5;
+	int pb = 4;
 
 	mask = ((1 << (n)) - 1) << (pa - n);
 

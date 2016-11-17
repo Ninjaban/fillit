@@ -6,7 +6,7 @@
 /*   By: mrajaona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 10:37:12 by mrajaona          #+#    #+#             */
-/*   Updated: 2016/11/15 12:59:53 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/17 12:07:53 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static int			ft_itfits(t_map *map, t_tetri *tetri, t_pos *pos)
 		pa = 4 * ((4 - l) % 4);
 		res += ft_doesitfit(tetri->piece, map->map[pos->y + l].line,
 							pa, pos->x);
+		printf("res it_fits : %d\n", res);
 		l++;
 	}
 	if (res == 0)
@@ -92,8 +93,8 @@ t_map				*ft_fillmap(unsigned char size, t_tetri *ttab, const int nb)
 {
 	t_pos	pos;
 	t_map	*map;
-	int		t;
-	int		p;
+	int		t; // incrementation ttab
+	int		p; // nb pieces placees
 	char	ptab[nb + 1];
 
 	p = 0;
@@ -103,9 +104,11 @@ t_map				*ft_fillmap(unsigned char size, t_tetri *ttab, const int nb)
 	while (p <= nb)
 		ptab[p++] = '\0';
 	p = 0;
-	while (p < nb)
+	t = 0;
+	while (p < nb && t < nb)
 	{
 		t = 0;
+		ft_putstr("loop\n");
 		if (map == NULL || (pos.y == size && p < nb))
 		{
 			if (map == NULL || t == nb)
@@ -128,9 +131,9 @@ t_map				*ft_fillmap(unsigned char size, t_tetri *ttab, const int nb)
 				{
 					ft_tetricpy(map, &(ttab[t]), &pos);
 					ptab[p] = ttab[t].letter;
+					p++;
+					t = 0;
 				}
-				t = 0;
-				p++;
 			}
 			t++;
 		}
