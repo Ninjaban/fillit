@@ -6,7 +6,7 @@
 /*   By: mrajaona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 10:37:12 by mrajaona          #+#    #+#             */
-/*   Updated: 2016/11/18 15:22:55 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/18 16:39:21 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,25 +51,25 @@ static int			ft_itfits(t_map *map, t_tetri *tetri, t_pos *pos)
 	return (1);
 }
 
-static int			ft_fill(char *ptab, t_tetri *ttab, t_map *map, t_pos *pos)
+static int			ft_fill(t_args *a, t_pos *pos)
 {
 	int	i;
 	int	p;
 	int	nb;
 
 	p = 0;
-	while (ptab[p])
+	while (a->ptab[p])
 		p++;
 	nb = 0;
-	while (ttab[nb].piece > 0)
+	while (a->ttab[nb].piece > 0)
 		nb++;
 	i = 0;
 	while (i < nb)
 	{
-		if (ttab[i].used == 0 && ft_itfits(map, &(ttab[i]), pos))
+		if (a->ttab[i].used == 0 && ft_itfits(a->map, &(a->ttab[i]), pos))
 		{
-			ft_tetricpy(map, &(ttab[i]), pos);
-			ptab[p] = ttab[i].letter;
+			ft_tetricpy(a->map, &(a->ttab[i]), pos);
+			a->ptab[p] = a->ttab[i].letter;
 			p++;
 		}
 		i++;
@@ -77,23 +77,22 @@ static int			ft_fill(char *ptab, t_tetri *ttab, t_map *map, t_pos *pos)
 	return (p);
 }
 
-int					ft_fillmap(char *ptab, t_map *map,
-								t_tetri *ttab, const int nb)
+int					ft_fillmap(t_args *args, const int nb)
 {
 	t_pos	pos;
 	int		p;
 
 	p = 0;
 	while (p <= nb)
-		ptab[p++] = '\0';
+		args->ptab[p++] = '\0';
 	p = 0;
 	pos.y = 0;
-	while (pos.y < map->size)
+	while (pos.y < args->map->size)
 	{
 		pos.x = 0;
-		while (pos.x < map->size)
+		while (pos.x < args->map->size)
 		{
-			p = ft_fill(ptab, ttab, map, &pos);
+			p = ft_fill(args, &pos);
 			pos.x++;
 		}
 		pos.y++;

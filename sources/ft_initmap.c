@@ -6,7 +6,7 @@
 /*   By: mrajaona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:10:59 by mrajaona          #+#    #+#             */
-/*   Updated: 2016/11/18 14:11:45 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/18 16:21:08 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,6 @@ static unsigned char	ft_sqrt(int nb)
 	while (i * i < nb && i < 24)
 		i++;
 	return (i);
-}
-
-void					ft_freemap(t_map *map)
-{
-	if (map)
-	{
-		if (map->map)
-			free(map->map);
-		free(map);
-	}
-	map = NULL;
 }
 
 static t_map			*ft_initmap(const unsigned char size)
@@ -53,12 +42,16 @@ static t_map			*ft_initmap(const unsigned char size)
 	return (map);
 }
 
-t_map					*ft_makemap(t_map *map, const unsigned char size)
+t_map					*ft_makemap(t_map *map, const unsigned char size,
+									t_args *args)
 {
 	if (map)
 		ft_freemap(map);
 	if ((map = ft_initmap(size)) == NULL)
+	{
+		ft_freeargs(args);
 		return (NULL);
+	}
 	return (map);
 }
 

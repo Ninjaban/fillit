@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 09:12:18 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/18 14:43:15 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/18 16:28:36 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,13 @@ typedef struct	s_tetri
 	t_pos			pos;
 }				t_tetri;
 
+typedef struct	s_args
+{
+	t_map	*map;
+	t_tetri	*ttab;
+	char	*ptab;
+}				t_args;
+
 /*
 **	Functions
 */
@@ -76,10 +83,11 @@ int				ft_fillit_secure_pro(short *tab);
 char			*ft_fillit_read(const char *name);
 short			*ft_fillit_parsing(char *str);
 void			ft_map(const int nb, short *tab);
-t_map			*ft_makemap(t_map *map, const unsigned char size);
+t_map			*ft_makemap(t_map *map, const unsigned char size, t_args *args);
 t_map			*ft_solve(unsigned char size, t_tetri *tab, const int nb);
-int				ft_fillmap(char *ptab, t_map *map, t_tetri *ttab, const int nb);
-void			ft_freemap(t_map *map);
+int				ft_fillmap(t_args *args, const int nb);
+void			*ft_freemap(t_map *map);
+void			ft_freeargs(t_args *args);
 void			ft_tetricpy(t_map *map, t_tetri *tetri, t_pos *pos);
 void			ft_tetridel(t_map *map, t_tetri *tetri);
 t_tetri			*ft_tabtetri(int nb, const short *tab);
