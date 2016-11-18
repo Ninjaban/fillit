@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 09:12:18 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/15 13:01:22 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/18 14:43:15 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 
 # define X 1
 # define Y 0
-# define B_TEST1(var, n) (var & (1 << n))
+# define B_TEST1(var, n) (var & (1 << (n)))
 # define B_TESTF(var, n) (var & (0xF << (n - 4)))
 # define B_TESTFF(var, n) (var & (0xFF << (n - 8)))
-# define B_ONE(var, n) (var | (1 << n))
-# define B_ZERO(var, n) var & ~(1 << n)
-# define B_REV(var, n) var ^ (1 << n)
+# define B_ONE(var, n) (var | (1 << (n)))
+# define B_ZERO(var, n) (var & ~(1 << (n)))
+# define B_REV(var, n) (var ^ (1 << (n)))
+# define MAX(x, y) (x > y ? x : y)
 
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -28,14 +29,14 @@
 # include <stdlib.h>
 
 /*
-** size max = 21 (fits all 26 * 4 * 4 pieces)
-** max value for line = 0x1FFFFF
+** size max = 24 (fits all 26 * 4 * 4 pieces)
+** max value for line = 0xFFFFFF
 ** max value for piece = 0xFFFF
 */
 
 typedef struct	s_mapl
 {
-	unsigned int	line : 21;
+	unsigned int	line : 24;
 }				t_mapl;
 
 typedef struct	s_map
@@ -50,11 +51,18 @@ typedef struct	s_pos
 	int	y;
 }				t_pos;
 
+typedef struct	s_tsize
+{
+	int	h;
+	int	w;
+}				t_tsize;
+
 typedef struct	s_tetri
 {
 	unsigned short	piece;
 	char			letter;
 	char			used;
+	t_tsize			size;
 	t_pos			pos;
 }				t_tetri;
 
@@ -69,13 +77,12 @@ char			*ft_fillit_read(const char *name);
 short			*ft_fillit_parsing(char *str);
 void			ft_map(const int nb, short *tab);
 t_map			*ft_makemap(t_map *map, const unsigned char size);
-t_map			*ft_fillmap(unsigned char size, t_tetri *tab, const int nb);
+t_map			*ft_solve(unsigned char size, t_tetri *tab, const int nb);
+int				ft_fillmap(char *ptab, t_map *map, t_tetri *ttab, const int nb);
+void			ft_freemap(t_map *map);
 void			ft_tetricpy(t_map *map, t_tetri *tetri, t_pos *pos);
 void			ft_tetridel(t_map *map, t_tetri *tetri);
 t_tetri			*ft_tabtetri(int nb, const short *tab);
 void			ft_printmap(t_map *map, t_tetri *tetri, const int nb);
-
-/* DEBUG */
-void 			ft_print_all(t_map *map);
 
 #endif

@@ -6,32 +6,13 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 09:14:19 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/15 11:49:16 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/18 15:23:39 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
-/*
-static void	ft_print_all(short *tab)
-{
-	int		n;
-	int		i;
 
-	n = -1;
-	while (tab[++n])
-	{
-		i = -1;
-		while (++i < 16)
-		{
-			if (i % 4 == 0)
-				ft_putstr("\n");
-			ft_putstr(((tab[n] & (1 << i)) == 0) ? "." : "#");
-		}
-		ft_putstr("\n\n");
-	}
-}
-*/
 static int	ft_free_stab(char *str, short *tab)
 {
 	if (str)
@@ -53,7 +34,6 @@ int			ft_fillit(const char *name)
 		return (ft_free_stab(str, NULL));
 	if ((tab = ft_fillit_parsing(str)) == NULL)
 		return (ft_free_stab(str, NULL));
-	//ft_print_all(tab);
 	nb = 0;
 	while (tab[nb])
 		nb = nb + 1;

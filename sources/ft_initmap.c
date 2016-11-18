@@ -6,27 +6,23 @@
 /*   By: mrajaona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:10:59 by mrajaona          #+#    #+#             */
-/*   Updated: 2016/11/17 14:10:39 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/18 14:11:45 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
-/*
-** square root rounded up
-*/
 
 static unsigned char	ft_sqrt(int nb)
 {
 	unsigned char	i;
 
 	i = 0;
-	while (i * i < nb && i < 21)
+	while (i * i < nb && i < 24)
 		i++;
 	return (i);
 }
 
-static void				ft_freemap(t_map *map)
+void					ft_freemap(t_map *map)
 {
 	if (map)
 	{
@@ -76,10 +72,9 @@ void					ft_map(const int nb, short *tab)
 	map = NULL;
 	if ((tetri = ft_tabtetri(nb, tab)) == NULL)
 		return ;
-	if ((map = ft_fillmap(size, tetri, nb)) == NULL)
+	if ((map = ft_solve(size, tetri, nb)) == NULL)
 		return ;
-	/*****************************/
-	//ft_printmap(map, tetri, nb);
+	ft_printmap(map, tetri, nb);
 	if (tetri)
 		free(tetri);
 	ft_freemap(map);

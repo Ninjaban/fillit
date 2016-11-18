@@ -6,7 +6,7 @@
 /*   By: mrajaona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:16:41 by mrajaona          #+#    #+#             */
-/*   Updated: 2016/11/17 15:30:14 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/18 15:14:50 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ static unsigned int	ft_cpy(unsigned short src, unsigned int dest,
 	return (dest);
 }
 
-#include "libft.h" //DEBUG
-
 void				ft_tetricpy(t_map *map, t_tetri *tetri, t_pos *pos)
 {
 	char	pa;
@@ -69,32 +67,7 @@ void				ft_tetricpy(t_map *map, t_tetri *tetri, t_pos *pos)
 		map->map[n].line = ft_cpy(tetri->piece, map->map[n].line, pa, pos->x);
 		l++;
 	}
-	/****************/
-	ft_putstr("\n");
-	ft_print_all(map);
-	ft_putstr("\n");
-	/****************/
 	tetri->pos.x = pos->x;
 	tetri->pos.y = pos->y;
 	tetri->used = 1;
-}
-
-t_tetri				*ft_tabtetri(int nb, const short *tab)
-{
-	t_tetri	*tabtetri;
-	int		i;
-
-	if ((tabtetri = (t_tetri *)malloc(sizeof(t_tetri) * nb)) == NULL)
-		return (NULL);
-	i = 0;
-	while (i < nb)
-	{
-		tabtetri[i].piece = tab[i];
-		tabtetri[i].letter = 'A' + i;
-		tabtetri[i].pos.x = 0;
-		tabtetri[i].pos.y = 0;
-		tabtetri[i].used = 0;
-		i++;
-	}
-	return (tabtetri);
 }

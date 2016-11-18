@@ -6,68 +6,27 @@
 /*   By: mrajaona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 10:37:12 by mrajaona          #+#    #+#             */
-/*   Updated: 2016/11/17 15:40:01 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/18 15:22:55 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include "libft.h" //DEBUG
 
-static t_map		*ft_cleanmap(t_map *map, t_tetri *ttab,
-							char *ptab, int p)
-{
-	int	t;
-
-	while (ptab[p])
-	{
-		t = 0;
-		if (ttab[t].letter != ptab[p])
-			t++;
-		ft_tetridel(map, &(ttab[t]));
-		ptab[p] = '\0';
-		p++;
-	}
-	return (map);
-}
-
-#include <stdio.h> //DEBUG
-void				ft_print_all(t_map *map)
-{
-	int i;
-	int n;
-
-	n = 0;
-	while (n < map->size)
-	{
-		i = 0;
-		while (i < map->size)
-		{
-			ft_putstr(((map->map[n].line & (1 << i)) == 0) ? "." : "#");
-			i++;
-		}
-		n++;
-		ft_putstr("\n");
-	}
-}
-
-static int			ft_isok(unsigned short src, int pa)
-{
-	unsigned int	mask;
-
-	mask = 0xF << (pa - 4);
-	if ((mask & src) != 0)
-		return (1);
-	return (0);
-}
-
-static int			ft_doesitfit(unsigned short src, unsigned int dest,
+static int			ft_doesitfit(t_tetri *src, unsigned int dest,
 									int pa, int pb)
 {
-	unsigned short	mask;
+	unsigned short	i;
+	int				j;
 
-	mask = 0xF << (pa - 4);
-	dest = dest & ((src & mask) >> (pa - 4) << pb);
-	return (dest);
+	i = 0;
+	j = 0;
+	while (i < src->size.w)
+	{
+		if (B_TEST1(src->piece, pa + i) != 0 && B_TEST1(dest, pb + i) != 0)
+			j++;
+		i++;
+	}
+	return (j);
 }
 
 static int			ft_itfits(t_map *map, t_tetri *tetri, t_pos *pos)
@@ -78,88 +37,66 @@ static int			ft_itfits(t_map *map, t_tetri *tetri, t_pos *pos)
 
 	l = 0;
 	res = 0;
-	ft_putstr("Does it fit ? ");
-	while (l < 4)
+	if ((tetri->size.h + pos->y) > map->size
+		|| (tetri->size.w + pos->x) > map->size)
+		return (0);
+	while (l < tetri->size.h && (pos->y + l) < map->size)
 	{
-		pa = 4 * (l + 1);
-		if ((pos->y + l) < map->size)
-			res += ft_doesitfit(tetri->piece, map->map[pos->y + l].line,
-								pa, pos->x);
-		else
-			res += ft_isok(tetri->piece, pa);
+		pa = 4 * (l);
+		res += ft_doesitfit(tetri, map->map[pos->y + l].line, pa, pos->x);
 		l++;
 	}
-	printf("%d\n", res);
 	if (res != 0)
 		return (0);
 	return (1);
 }
 
-/* CA MARCHE PAS ET CA TUE LA NORME */
-
-t_map				*ft_fillmap(unsigned char size, t_tetri *ttab, const int nb)
+static int			ft_fill(char *ptab, t_tetri *ttab, t_map *map, t_pos *pos)
 {
-	t_pos	pos;
-	t_map	*map;
-	int		t; // incrementation ttab
-	int		p; // nb pieces placees
-	char	ptab[nb + 1];
+	int	i;
+	int	p;
+	int	nb;
 
 	p = 0;
-	map = NULL;
-	pos.x = 0;
-	pos.y = 0;
-	t = 0;
-	while (p < nb)
+	while (ptab[p])
+		p++;
+	nb = 0;
+	while (ttab[nb].piece > 0)
+		nb++;
+	i = 0;
+	while (i < nb)
 	{
-		if (map == NULL || (pos.y == size && t == nb))
+		if (ttab[i].used == 0 && ft_itfits(map, &(ttab[i]), pos))
 		{
-			ft_putstr("\nNULL\n");
-			p = 0;
-			if (map)
-			{
-				ft_cleanmap(map, ttab, ptab, 0);
-				ft_putstr("Clean\n\n");
-				size++;
-			}
-			if ((map = ft_makemap(map, size)) == NULL)
-				return (NULL);
-			while (p <= nb)
-				ptab[p++] = '\0';
-			p = 0;
-			pos.x = 0;
-			pos.y = 0;
+			ft_tetricpy(map, &(ttab[i]), pos);
+			ptab[p] = ttab[i].letter;
+			p++;
 		}
-		t = 0;
-		while (t < nb)
-		{
-			if (ttab[t].used == 0)
-			{
-				printf("Loop : x:%d y:%d, t:%d, s:%d\n", pos.x, pos.y, t, size);
-				if (ft_itfits(map, &(ttab[t]), &pos) == 1)
-				{
-					ft_tetricpy(map, &(ttab[t]), &pos);
-					ptab[p] = ttab[t].letter;
-					pos.x++;
-					p++;
-					t = -1;
-				}
-			}
-			if (pos.x == size)
-			{
-				pos.y++;
-				pos.x = 0;
-			}
-			t++;
-		}
-		pos.x++;
-		if (pos.x == size)
-		{
-			pos.y++;
-			pos.x = 0;
-		}
+		i++;
 	}
-	ft_putstr(ptab);
-	ft_putstr("\n\n");
-	return (map);
+	return (p);
+}
+
+int					ft_fillmap(char *ptab, t_map *map,
+								t_tetri *ttab, const int nb)
+{
+	t_pos	pos;
+	int		p;
+
+	p = 0;
+	while (p <= nb)
+		ptab[p++] = '\0';
+	p = 0;
+	pos.y = 0;
+	while (pos.y < map->size)
+	{
+		pos.x = 0;
+		while (pos.x < map->size)
+		{
+			p = ft_fill(ptab, ttab, map, &pos);
+			pos.x++;
+		}
+		pos.y++;
+	}
+	return (p);
 }
