@@ -6,7 +6,7 @@
 /*   By: mrajaona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 09:16:41 by mrajaona          #+#    #+#             */
-/*   Updated: 2016/11/18 15:14:50 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/20 12:06:34 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ static unsigned int	ft_del(unsigned short src, unsigned int dest,
 	unsigned int	mask;
 
 	mask = (0xF << (pa - 4));
-	dest = (dest) ^ (((~(src) & mask) >> (pa - 4) << pb)
-					^ (dest | (mask >> (pa - 4) << pb)));
+	dest = dest ^ (((src) & mask) >> (pa - 4) << pb);
 	return (dest);
 }
 

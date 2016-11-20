@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 09:12:18 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/18 16:28:36 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/20 12:22:38 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 # define B_ZERO(var, n) (var & ~(1 << (n)))
 # define B_REV(var, n) (var ^ (1 << (n)))
 # define MAX(x, y) (x > y ? x : y)
+
+# define MAP args->map
+# define TTAB args->ttab
+# define PTAB args->ptab
 
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -85,12 +89,30 @@ short			*ft_fillit_parsing(char *str);
 void			ft_map(const int nb, short *tab);
 t_map			*ft_makemap(t_map *map, const unsigned char size, t_args *args);
 t_map			*ft_solve(unsigned char size, t_tetri *tab, const int nb);
+int				ft_itfits(t_map *map, t_tetri *tetri, t_pos *pos);
 int				ft_fillmap(t_args *args, const int nb);
 void			*ft_freemap(t_map *map);
 void			ft_freeargs(t_args *args);
 void			ft_tetricpy(t_map *map, t_tetri *tetri, t_pos *pos);
 void			ft_tetridel(t_map *map, t_tetri *tetri);
+void			ft_cleanmap(t_args *args, int p);
 t_tetri			*ft_tabtetri(int nb, const short *tab);
 void			ft_printmap(t_map *map, t_tetri *tetri, const int nb);
 
 #endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

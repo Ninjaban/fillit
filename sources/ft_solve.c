@@ -6,30 +6,30 @@
 /*   By: mrajaona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 14:40:28 by mrajaona          #+#    #+#             */
-/*   Updated: 2016/11/18 16:39:44 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/20 12:30:04 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static t_map		*ft_cleanmap(t_map *map, t_tetri *ttab,
-							char *ptab, int p)
+void	ft_cleanmap(t_args *args, int p)
 {
 	int	t;
 
-	while (ptab[p])
+	while (PTAB[p])
 	{
 		t = 0;
-		while (ttab[t].letter != ptab[p])
+		while (TTAB[t].letter != PTAB[p])
 			t++;
-		ft_tetridel(map, &(ttab[t]));
-		ptab[p] = '\0';
+		ft_tetridel(MAP, &(TTAB[t]));
+		PTAB[p] = '\0';
 		p++;
 	}
-	return (map);
 }
 
-t_map				*ft_solve(unsigned char size, t_tetri *ttab, const int nb)
+#include "libft.h"
+
+t_map	*ft_solve(unsigned char size, t_tetri *ttab, const int nb)
 {
 	t_map	*map;
 	char	*ptab;
@@ -49,7 +49,8 @@ t_map				*ft_solve(unsigned char size, t_tetri *ttab, const int nb)
 	args->map = map;
 	while (ft_fillmap(args, nb) != nb && size++ < 24)
 	{
-		ft_cleanmap(map, ttab, ptab, 0);
+		ft_putstr("RE\n");
+		ft_cleanmap(args, 0);
 		if ((map = ft_makemap(map, size, args)) == NULL)
 			return (NULL);
 	}

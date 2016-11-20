@@ -6,7 +6,7 @@
 #    By: jcarra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 14:55:01 by jcarra            #+#    #+#              #
-#    Updated: 2016/11/18 16:19:47 by mrajaona         ###   ########.fr        #
+#    Updated: 2016/11/20 10:26:43 by mrajaona         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -20,6 +20,7 @@ SRC			=	ft_main.c \
 				ft_read.c \
 				ft_inittetri.c\
 				ft_tetri.c \
+				ft_tetrifit.c \
 				ft_initmap.c \
 				ft_free.c \
 				ft_solve.c \
