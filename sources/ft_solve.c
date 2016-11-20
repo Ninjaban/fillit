@@ -6,7 +6,7 @@
 /*   By: mrajaona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 14:40:28 by mrajaona          #+#    #+#             */
-/*   Updated: 2016/11/20 12:30:04 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/20 12:43:06 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	ft_cleanmap(t_args *args, int p)
 		p++;
 	}
 }
-
-#include "libft.h"
 
 t_map	*ft_solve(unsigned char size, t_tetri *ttab, const int nb)
 {
@@ -49,7 +47,6 @@ t_map	*ft_solve(unsigned char size, t_tetri *ttab, const int nb)
 	args->map = map;
 	while (ft_fillmap(args, nb) != nb && size++ < 24)
 	{
-		ft_putstr("RE\n");
 		ft_cleanmap(args, 0);
 		if ((map = ft_makemap(map, size, args)) == NULL)
 			return (NULL);
