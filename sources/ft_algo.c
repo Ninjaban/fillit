@@ -6,14 +6,12 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 12:33:48 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/20 16:06:47 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/20 21:36:03 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
-
-#include <stdio.h>
 
 static int	ft_is_printable(t_map **map, short tetri, t_point *pos)
 {
@@ -104,6 +102,8 @@ int			ft_algo(int nb, short *tetri)
 	map->size = 2;
 	map->map = NULL;
 	map->nb = nb;
+	while ((map->size * map->size) < (size_t)(map->nb * 4))
+		map->size++;
 	if (ft_setmap(map->size, &map->map) == -1)
 		return (FALSE);
 	while (ft_algo_rec(&map, tetri, 0) == FALSE)
