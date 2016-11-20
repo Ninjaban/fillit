@@ -6,7 +6,7 @@
 #    By: jcarra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 14:55:01 by jcarra            #+#    #+#              #
-#    Updated: 2016/11/20 10:26:43 by mrajaona         ###   ########.fr        #
+#    Updated: 2016/11/20 13:57:05 by mrajaona         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -48,8 +48,8 @@ all		:		$(NAME)
 			   	@$(ECHO) ''
 
 $(NAME)	:
-				@$(CC) $(CFLAGS) -c $(SRCS)
-				@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS)
+				$(CC) $(CFLAGS) -c $(SRCS)
+				$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS)
 				@$(ECHO) '\033[32m> Compiled\n\033[0m'
 
 clean	:

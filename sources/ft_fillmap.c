@@ -6,7 +6,7 @@
 /*   By: mrajaona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 10:37:12 by mrajaona          #+#    #+#             */
-/*   Updated: 2016/11/20 12:27:28 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/20 14:58:14 by mrajaona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static int	ft_fill(t_args *args, int t, int p, t_pos *pos)
 		ft_setpos(pos, TTAB[t].pos.x, TTAB[t].pos.y);
 		ft_cleanmap(args, p);
 		t++;
-		return (ft_fill(args, t, p, pos));
 	}
 	ft_chktetri(args, &t, &p, pos);
 	return (ft_fill(args, t, p, pos));
