@@ -1,42 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prosecure.c                                     :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/10 10:56:18 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/11 08:37:41 by jcarra           ###   ########.fr       */
+/*   Created: 2016/11/03 11:02:40 by jcarra            #+#    #+#             */
+/*   Updated: 2016/11/04 15:02:02 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "fillit.h"
 
-#include <stdio.h>
-
-int			ft_fillit_secure_pro_cmp(short *tab, int n)
+void					*ft_memchr(const void *str, int c, size_t n)
 {
-	int		i;
+	const unsigned char	*dst;
+	size_t				i;
 
-	i = -1;
-	while (++i < 27)
+	dst = str;
+	i = 0;
+	while (i < n && (*dst != (unsigned char)c) && *dst != '\0')
 	{
-		if (i == n)
-			i = i + 1;
-		if (tab[i] == tab[n])
-			return (1);
+		i = i + 1;
+		dst++;
 	}
-	return (0);
-}
-
-int			ft_fillit_secure_pro(short *tab)
-{
-	int		n;
-
-	n = 0;
-	while (tab[n] != 0)
-		if (ft_fillit_secure_pro_cmp(tab, n++) == 1)
-			return (-1);
-	return (0);
+	if (*dst == (unsigned char)c)
+		return ((void *)dst);
+	else
+		return (NULL);
 }

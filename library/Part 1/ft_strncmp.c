@@ -1,42 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prosecure.c                                     :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/10 10:56:18 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/11 08:37:41 by jcarra           ###   ########.fr       */
+/*   Created: 2016/11/02 16:52:51 by jcarra            #+#    #+#             */
+/*   Updated: 2016/11/04 15:40:08 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "fillit.h"
 
-#include <stdio.h>
-
-int			ft_fillit_secure_pro_cmp(short *tab, int n)
+int			ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int		i;
+	size_t	i;
 
-	i = -1;
-	while (++i < 27)
-	{
-		if (i == n)
-			i = i + 1;
-		if (tab[i] == tab[n])
-			return (1);
-	}
-	return (0);
-}
-
-int			ft_fillit_secure_pro(short *tab)
-{
-	int		n;
-
-	n = 0;
-	while (tab[n] != 0)
-		if (ft_fillit_secure_pro_cmp(tab, n++) == 1)
-			return (-1);
-	return (0);
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] && s2[i] && i < n)
+		i = i + 1;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

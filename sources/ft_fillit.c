@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 09:14:19 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/18 15:23:39 by mrajaona         ###   ########.fr       */
+/*   Updated: 2016/11/20 12:39:57 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int			ft_fillit(const char *name)
 	nb = 0;
 	while (tab[nb])
 		nb = nb + 1;
-	ft_map(nb, tab);
+	ft_algo(nb, tab);
 	ft_free_stab(str, tab);
 	return (0);
 }

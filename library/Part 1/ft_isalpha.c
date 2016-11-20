@@ -1,42 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prosecure.c                                     :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/10 10:56:18 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/11 08:37:41 by jcarra           ###   ########.fr       */
+/*   Created: 2016/11/04 11:08:51 by jcarra            #+#    #+#             */
+/*   Updated: 2016/11/04 11:17:23 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "fillit.h"
 
-#include <stdio.h>
-
-int			ft_fillit_secure_pro_cmp(short *tab, int n)
+int		ft_isalpha(int c)
 {
-	int		i;
-
-	i = -1;
-	while (++i < 27)
-	{
-		if (i == n)
-			i = i + 1;
-		if (tab[i] == tab[n])
-			return (1);
-	}
-	return (0);
-}
-
-int			ft_fillit_secure_pro(short *tab)
-{
-	int		n;
-
-	n = 0;
-	while (tab[n] != 0)
-		if (ft_fillit_secure_pro_cmp(tab, n++) == 1)
-			return (-1);
+	if ((c >= (int)'a' && c <= (int)'z') || (c >= (int)'A' && c <= (int)'Z'))
+		return (1);
 	return (0);
 }

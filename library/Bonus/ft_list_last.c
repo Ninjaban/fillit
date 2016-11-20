@@ -1,42 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prosecure.c                                     :+:      :+:    :+:   */
+/*   ft_list_last.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/10 10:56:18 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/11 08:37:41 by jcarra           ###   ########.fr       */
+/*   Created: 2016/07/19 10:10:26 by jcarra            #+#    #+#             */
+/*   Updated: 2016/11/09 11:32:03 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
-#include "fillit.h"
 
-#include <stdio.h>
-
-int			ft_fillit_secure_pro_cmp(short *tab, int n)
+t_lst	*ft_list_last(t_lst *begin_list)
 {
-	int		i;
+	t_lst	*last;
 
-	i = -1;
-	while (++i < 27)
-	{
-		if (i == n)
-			i = i + 1;
-		if (tab[i] == tab[n])
-			return (1);
-	}
-	return (0);
-}
-
-int			ft_fillit_secure_pro(short *tab)
-{
-	int		n;
-
-	n = 0;
-	while (tab[n] != 0)
-		if (ft_fillit_secure_pro_cmp(tab, n++) == 1)
-			return (-1);
-	return (0);
+	last = begin_list;
+	if (begin_list == NULL)
+		return (NULL);
+	while (last->next != NULL)
+		last = last->next;
+	return (last);
 }

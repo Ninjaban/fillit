@@ -1,42 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prosecure.c                                     :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/10 10:56:18 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/11 08:37:41 by jcarra           ###   ########.fr       */
+/*   Created: 2016/11/03 10:59:41 by jcarra            #+#    #+#             */
+/*   Updated: 2016/11/04 10:15:01 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "fillit.h"
 
-#include <stdio.h>
-
-int			ft_fillit_secure_pro_cmp(short *tab, int n)
+char		*ft_strnew(size_t size)
 {
-	int		i;
-
-	i = -1;
-	while (++i < 27)
-	{
-		if (i == n)
-			i = i + 1;
-		if (tab[i] == tab[n])
-			return (1);
-	}
-	return (0);
-}
-
-int			ft_fillit_secure_pro(short *tab)
-{
-	int		n;
+	char	*str;
+	size_t	n;
 
 	n = 0;
-	while (tab[n] != 0)
-		if (ft_fillit_secure_pro_cmp(tab, n++) == 1)
-			return (-1);
-	return (0);
+	if (size == 0)
+		return (NULL);
+	if ((str = malloc(size + 1)) == NULL)
+		return (NULL);
+	while (n <= size)
+		str[n++] = '\0';
+	return (str);
 }

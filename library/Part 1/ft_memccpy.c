@@ -1,42 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prosecure.c                                     :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/10 10:56:18 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/11 08:37:41 by jcarra           ###   ########.fr       */
+/*   Created: 2016/11/03 11:04:07 by jcarra            #+#    #+#             */
+/*   Updated: 2016/11/04 15:53:19 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "fillit.h"
 
-#include <stdio.h>
-
-int			ft_fillit_secure_pro_cmp(short *tab, int n)
+void					*ft_memccpy(void *str, const void *srcs,
+									int c, size_t n)
 {
-	int		i;
+	unsigned char		*dst;
+	const unsigned char	*src;
+	size_t				i;
 
-	i = -1;
-	while (++i < 27)
+	dst = str;
+	src = srcs;
+	i = 0;
+	if (srcs != NULL)
+		while (i++ < n && *src != (unsigned char)c)
+			*dst++ = *src++;
+	if (*src == (unsigned char)c)
 	{
-		if (i == n)
-			i = i + 1;
-		if (tab[i] == tab[n])
-			return (1);
+		*dst++ = *src++;
+		return ((void *)dst);
 	}
-	return (0);
-}
-
-int			ft_fillit_secure_pro(short *tab)
-{
-	int		n;
-
-	n = 0;
-	while (tab[n] != 0)
-		if (ft_fillit_secure_pro_cmp(tab, n++) == 1)
-			return (-1);
-	return (0);
+	else
+		return (NULL);
 }

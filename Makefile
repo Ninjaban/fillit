@@ -6,7 +6,7 @@
 #    By: jcarra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 14:55:01 by jcarra            #+#    #+#              #
-#    Updated: 2016/11/20 13:57:05 by mrajaona         ###   ########.fr        #
+#    Updated: 2016/11/20 14:36:43 by jcarra           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -18,14 +18,8 @@ SRC			=	ft_main.c \
 				ft_parsing.c \
 				ft_prosecure.c \
 				ft_read.c \
-				ft_inittetri.c\
-				ft_tetri.c \
-				ft_tetrifit.c \
-				ft_initmap.c \
-				ft_free.c \
-				ft_solve.c \
-				ft_fillmap.c \
-				ft_printmap.c
+				ft_algo.c \
+				ft_algo_tools.c
 
 LIB			=	libft.a
 
@@ -37,26 +31,29 @@ SRCS		=	$(SRC:%=$(DIRSRC)%)
 LIBS		=	$(LIB:%=$(DIRLIB)%)
 OBJS		=	$(SRC:.c=.o)
 
-CFLAGS		=	-Wall -Wextra -Werror -I./$(DIRINC)
+CFLAGS		=	-Wall -Wextra -Werror -I./$(DIRINC) -g3
 
 CC			=	gcc
 RM			=	rm -f
 ECHO		=	printf
+MAKE		=	make -C
 
 
 all		:		$(NAME)
-			   	@$(ECHO) ''
 
 $(NAME)	:
-				$(CC) $(CFLAGS) -c $(SRCS)
-				$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS)
+				@$(MAKE) $(DIRLIB)
+				@$(CC) $(CFLAGS) -c $(SRCS)
+				@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS)
 				@$(ECHO) '\033[32m> Compiled\n\033[0m'
 
 clean	:
+				@$(MAKE) $(DIRLIB) clean
 				@$(RM) $(OBJS)
 				@$(ECHO) '\033[31m> Directory cleaned\n\033[0m'
 
 fclean	:		clean
+				@$(MAKE) $(DIRLIB) fclean
 				@$(RM) $(NAME)
 				@$(ECHO) '\033[31m> Remove executable\n\033[0m'
 

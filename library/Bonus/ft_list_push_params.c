@@ -1,42 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prosecure.c                                     :+:      :+:    :+:   */
+/*   ft_list_push_params.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/10 10:56:18 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/11 08:37:41 by jcarra           ###   ########.fr       */
+/*   Created: 2016/07/19 10:14:23 by jcarra            #+#    #+#             */
+/*   Updated: 2016/11/09 11:32:14 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "fillit.h"
 
-#include <stdio.h>
-
-int			ft_fillit_secure_pro_cmp(short *tab, int n)
-{
-	int		i;
-
-	i = -1;
-	while (++i < 27)
-	{
-		if (i == n)
-			i = i + 1;
-		if (tab[i] == tab[n])
-			return (1);
-	}
-	return (0);
-}
-
-int			ft_fillit_secure_pro(short *tab)
+t_lst	*ft_list_push_params(int ac, char **av)
 {
 	int		n;
+	t_lst	*new;
 
-	n = 0;
-	while (tab[n] != 0)
-		if (ft_fillit_secure_pro_cmp(tab, n++) == 1)
-			return (-1);
-	return (0);
+	n = 1;
+	new = NULL;
+	if (ac > 1)
+		new = ft_create_elem(av[n++]);
+	while (n < ac)
+	{
+		new->next = ft_create_elem(av[n++]);
+		new = new->next;
+	}
+	if (new != NULL)
+		new->next = ft_create_elem(av[0]);
+	else
+		new = ft_create_elem(av[0]);
+	return (new);
 }

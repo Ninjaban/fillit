@@ -1,42 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prosecure.c                                     :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/10 10:56:18 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/11 08:37:41 by jcarra           ###   ########.fr       */
+/*   Created: 2016/11/03 12:02:33 by jcarra            #+#    #+#             */
+/*   Updated: 2016/11/03 14:59:13 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "fillit.h"
 
-#include <stdio.h>
-
-int			ft_fillit_secure_pro_cmp(short *tab, int n)
+char		*ft_strjoin(char const *s1, char const *s2)
 {
+	char	*str;
+	int		n;
 	int		i;
 
-	i = -1;
-	while (++i < 27)
-	{
-		if (i == n)
-			i = i + 1;
-		if (tab[i] == tab[n])
-			return (1);
-	}
-	return (0);
-}
-
-int			ft_fillit_secure_pro(short *tab)
-{
-	int		n;
-
 	n = 0;
-	while (tab[n] != 0)
-		if (ft_fillit_secure_pro_cmp(tab, n++) == 1)
-			return (-1);
-	return (0);
+	i = 0;
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	if ((str = malloc(ft_strlen((char *)s1) +
+						ft_strlen((char *)s2) + 1)) == NULL)
+		return (NULL);
+	while (s1[i])
+		str[n++] = s1[i++];
+	i = 0;
+	while (s2[i])
+		str[n++] = s2[i++];
+	str[n] = '\0';
+	return (str);
 }

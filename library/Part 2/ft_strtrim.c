@@ -1,43 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_read.c                                          :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/08 14:31:40 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/11 08:53:02 by jcarra           ###   ########.fr       */
+/*   Created: 2016/11/03 12:59:27 by jcarra            #+#    #+#             */
+/*   Updated: 2016/11/04 13:05:15 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "fillit.h"
 
-char		*ft_fillit_read(const char *name)
+char		*ft_strtrim(char const *s)
 {
 	char	*str;
-	char	*tmp;
-	char	buf[4097];
-	int		fd;
-	int		ret;
+	int		start;
+	int		end;
+	int		n;
 
-	if ((fd = open(name, O_RDONLY)) == -1)
+	if (s == NULL)
 		return (NULL);
-	if ((str = malloc(1)) == NULL)
-		return (NULL);
-	str[0] = '\0';
-	while ((ret = read(fd, buf, 4096)) == 4096)
+	n = 0;
+	start = 0;
+	end = ft_strlen((char *)s) - 1;
+	while (s[start] == ' ' || s[start] == '\t' || s[start] == '\n')
+		start = start + 1;
+	while (s[end] == ' ' || s[end] == '\t' || s[end] == '\n')
+		end = end - 1;
+	if (end < start)
 	{
-		buf[ret] = '\0';
-		if ((tmp = ft_strjoin(str, buf)) == NULL)
+		if ((str = malloc(1)) == NULL)
 			return (NULL);
-		free(str);
-		str = tmp;
 	}
-	buf[ret] = '\0';
-	if ((tmp = ft_strjoin(str, buf)) == NULL)
+	else if ((str = malloc(end - start + 2)) == NULL)
 		return (NULL);
-	free(str);
-	str = tmp;
+	while (start <= end)
+		str[n++] = s[start++];
+	str[n] = '\0';
 	return (str);
 }

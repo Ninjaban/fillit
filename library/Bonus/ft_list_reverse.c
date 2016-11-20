@@ -1,42 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prosecure.c                                     :+:      :+:    :+:   */
+/*   ft_list_reverse.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/10 10:56:18 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/11 08:37:41 by jcarra           ###   ########.fr       */
+/*   Created: 2016/07/19 11:17:22 by jcarra            #+#    #+#             */
+/*   Updated: 2016/11/09 11:32:38 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "fillit.h"
 
-#include <stdio.h>
-
-int			ft_fillit_secure_pro_cmp(short *tab, int n)
+void	ft_list_reverse(t_lst **begin_list)
 {
-	int		i;
+	t_lst	*last;
+	t_lst	*next;
+	t_lst	*tmp;
 
-	i = -1;
-	while (++i < 27)
+	if (begin_list && *begin_list)
 	{
-		if (i == n)
-			i = i + 1;
-		if (tab[i] == tab[n])
-			return (1);
+		last = *begin_list;
+		if (last->next != NULL)
+		{
+			next = last->next;
+			last->next = NULL;
+			while (next->next != NULL)
+			{
+				tmp = next->next;
+				next->next = last;
+				last = next;
+				next = tmp;
+			}
+		}
 	}
-	return (0);
-}
-
-int			ft_fillit_secure_pro(short *tab)
-{
-	int		n;
-
-	n = 0;
-	while (tab[n] != 0)
-		if (ft_fillit_secure_pro_cmp(tab, n++) == 1)
-			return (-1);
-	return (0);
 }

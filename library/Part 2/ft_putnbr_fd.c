@@ -1,42 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prosecure.c                                     :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/10 10:56:18 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/11 08:37:41 by jcarra           ###   ########.fr       */
+/*   Created: 2016/11/03 15:53:55 by jcarra            #+#    #+#             */
+/*   Updated: 2016/11/09 10:39:15 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "fillit.h"
 
-#include <stdio.h>
-
-int			ft_fillit_secure_pro_cmp(short *tab, int n)
+void					ft_putnbr_fd(int nbr, int fd)
 {
-	int		i;
+	unsigned long int	rev;
+	char				c;
 
-	i = -1;
-	while (++i < 27)
+	if (nbr == 0)
+		ft_putstr_fd("0", fd);
+	else if (nbr == -2147483648)
+		ft_putstr_fd("-2147483648", fd);
+	else
 	{
-		if (i == n)
-			i = i + 1;
-		if (tab[i] == tab[n])
-			return (1);
+		if (nbr < 0)
+			ft_putchar_fd('-', fd);
+		rev = ABS(nbr);
+		rev = ft_revnbr(rev);
+		while (rev != 1)
+		{
+			c = rev % 10 + '0';
+			rev = rev / 10;
+			ft_putchar_fd(c, fd);
+		}
 	}
-	return (0);
-}
-
-int			ft_fillit_secure_pro(short *tab)
-{
-	int		n;
-
-	n = 0;
-	while (tab[n] != 0)
-		if (ft_fillit_secure_pro_cmp(tab, n++) == 1)
-			return (-1);
-	return (0);
 }
