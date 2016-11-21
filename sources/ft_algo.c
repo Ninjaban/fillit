@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 12:33:48 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/20 21:36:03 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/21 09:25:38 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	ft_is_printable(t_map **map, short tetri, t_point *pos)
 			(pos->x + (n % 4) >= (*map)->size)))
 			return (FALSE);
 		else if (((tetri & (1 << n)) != 0) &&
-			((*map)->map[pos->y + (n / 4)][pos->x + (n % 4)] != '_'))
+			((*map)->map[pos->y + (n / 4)][pos->x + (n % 4)] != '.'))
 			return (FALSE);
 	}
 	return (TRUE);
@@ -54,50 +54,47 @@ static void	ft_clean(t_map **map, char name)
 		while (x < (*map)->size)
 		{
 			if ((*map)->map[y][x] == name)
-				(*map)->map[y][x] = '_';
+				(*map)->map[y][x] = '.';
 			x = x + 1;
 		}
 		y = y + 1;
 	}
 }
 
-static int	ft_algo_rec(t_map **map, short *tetri, int nb)
+static int	ft_algo_rec(t_map **map, short *tetri, t_point *pos, int nb)
 {
-	t_point	*pos;
+	size_t	x;
+	size_t	y;
 
 	if (nb == (*map)->nb)
 		return (TRUE);
-	if ((pos = malloc(sizeof(t_point))) == NULL)
-		return (FALSE);
 	ft_setpoint(&pos, 0, 0, (*map)->size);
 	while (pos->y < (*map)->size)
 	{
 		while ((ft_is_printable(map, tetri[nb], pos) != TRUE) &&
-			   (pos->y < (*map)->size))
+				(pos->y < (*map)->size))
 			ft_setpoint(&pos, pos->x + 1, pos->y, (*map)->size);
 		if (pos->y >= (*map)->size)
-		{
-			free(pos);
 			return (FALSE);
-		}
 		ft_print(&(*map), tetri[nb], &pos, (char)(nb + 'A'));
-		if (ft_algo_rec(&(*map), tetri, nb + 1) == TRUE)
-		{
-			free(pos);
+		x = pos->x;
+		y = pos->y;
+		if (ft_algo_rec(&(*map), tetri, pos, nb + 1) == TRUE)
 			return (TRUE);
-		}
 		ft_clean(&(*map), (char)(nb + 'A'));
-		ft_setpoint(&pos, pos->x + 1, pos->y, (*map)->size);
+		ft_setpoint(&pos, x + 1, y, (*map)->size);
 	}
-	free(pos);
 	return (FALSE);
 }
 
 int			ft_algo(int nb, short *tetri)
 {
 	t_map	*map;
+	t_point	*pos;
 
 	if ((map = malloc(sizeof(t_map))) == NULL)
+		return (FALSE);
+	if ((pos = malloc(sizeof(t_point))) == NULL)
 		return (FALSE);
 	map->size = 2;
 	map->map = NULL;
@@ -106,7 +103,7 @@ int			ft_algo(int nb, short *tetri)
 		map->size++;
 	if (ft_setmap(map->size, &map->map) == -1)
 		return (FALSE);
-	while (ft_algo_rec(&map, tetri, 0) == FALSE)
+	while (ft_algo_rec(&map, tetri, pos, 0) == FALSE)
 	{
 		map->size++;
 		if (ft_setmap(map->size, &map->map) == -1)
@@ -114,6 +111,7 @@ int			ft_algo(int nb, short *tetri)
 	}
 	ft_display(&map);
 	ft_free_map(map->map, map->size);
+	free(pos);
 	free(map);
 	return (0);
 }

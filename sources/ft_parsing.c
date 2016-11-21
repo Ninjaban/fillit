@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 16:40:02 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/11 10:12:27 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/21 11:55:27 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ short			*ft_fillit_parsing(char *str)
 		return (NULL);
 	while (n < 27)
 		tab[n++] = 0;
-	if (ft_fillit_parsing_alloc(&tab, str) == -1)
+	if (ft_fillit_parsing_alloc(&tab, str) == -1 || !tab[0])
 	{
 		free(tab);
 		return (NULL);
