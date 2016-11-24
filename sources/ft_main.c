@@ -6,7 +6,7 @@
 /*   By: jcarra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 08:54:57 by jcarra            #+#    #+#             */
-/*   Updated: 2016/11/22 09:03:26 by jcarra           ###   ########.fr       */
+/*   Updated: 2016/11/24 13:28:53 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ int		main(int ac, char **av)
 {
 	if (ac != 2)
 	{
-		ft_putendl_fd("Usage: ./fillit [file]", 2);
+		ft_putendl_fd("Usage: ./fillit [file]", 1);
 		return (1);
 	}
 	if (ft_fillit(av[1]) == -1)
 	{
-		ft_putendl_fd("error", 2);
+		ft_putendl_fd("error", 1);
 		return (1);
 	}
 	return (0);
